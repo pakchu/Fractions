@@ -68,8 +68,10 @@ library FractionTuple128 {
     }
     
     function biggerTuple(Tuple memory big, Tuple memory small)internal view zeroDivide(big) zeroDivide(small) returns(bool) {
-        (big, small) = commonDenominator(big, small);
-        if (big.numerator >= small.numerator) return true;
+        Tuple memory c;
+        Tuple memory d;
+        (c, d) = commonDenominator(big, small);
+        if (c.numerator >= d.numerator) return true;
         else return false;
     }
 
