@@ -9,7 +9,7 @@ contract testing{
     function _sort(uint128 a, uint128 b) external view returns(uint128, uint128){
         return FractionTuple128.sort(a,b);
     }
-    function _sor256t(uint256 a, uint256 b) external view returns(uint256, uint256){
+    function _sort256(uint256 a, uint256 b) external view returns(uint256, uint256){
         return FractionTuple128.sort256(a,b);
     }
     function _gcd(uint128 a, uint128 b) external view returns(uint128){
