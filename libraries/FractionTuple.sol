@@ -27,7 +27,7 @@ library FractionTuple {
     }
     // function for getting least common multiplier
     function lcm(uint256 a, uint256 b) internal view returns(uint256){
-        return a / gcd(a,b) * b;
+        return (a / gcd(a,b) ).mul(b);
     }
     // is tuple a reduced fraction 
     function abbreviatable(Tuple memory wantedTuple) internal view returns(bool) {
@@ -55,8 +55,8 @@ library FractionTuple {
     // finding lcm of denominators of two tuples
     function commonDenominator(Tuple memory a, Tuple memory b) internal view zeroDivide(a) zeroDivide(b) returns(Tuple memory, Tuple memory){
         uint256 lcm = lcm(a.denominator, b.denominator);
-        uint256 numerator0 = lcm / a.denominator * a.numerator;
-        uint256 numerator1 = lcm / b.denominator * b.numerator;
+        uint256 numerator0 = ( lcm / a.denominator ).mul(a.numerator);
+        uint256 numerator1 = (lcm / b.denominator).mul(b.numerator);
         return (Tuple(numerator0, lcm), Tuple(numerator1, lcm));
     }
     
@@ -70,14 +70,14 @@ library FractionTuple {
 
     function addTuple(Tuple memory a, Tuple memory b) internal view zeroDivide(a) zeroDivide(b) returns(Tuple memory c){
         (a,b) = commonDenominator(a,b);
-        c = abbreviate(Tuple( a.numerator + b.numerator , a.denominator ));
+        c = abbreviate(Tuple( a.numerator.add(b.numerator) , a.denominator ));
         return c;
     }
     
     function subtractTuple(Tuple memory a, Tuple memory b) internal view zeroDivide(a) zeroDivide(b) returns(Tuple memory c){
         require( biggerTuple(a, b), "Tuple: Underflow" );
         (a,b) = commonDenominator(a,b);
-        c = abbreviate(Tuple( a.numerator - b.numerator , a.denominator ));
+        c = abbreviate(Tuple( a.numerator.sub(b.numerator) , a.denominator ));
         return c;
     }
     
@@ -86,12 +86,12 @@ library FractionTuple {
         b = abbreviate(b);
         Tuple memory c = abbreviate(Tuple( a.numerator , b.denominator));
         Tuple memory d = abbreviate(Tuple( b.numerator , a.denominator));
-        result = Tuple( c.numerator * d.numerator , c.denominator * d.denominator);
+        result = Tuple( c.numerator.mul(d.numerator) , c.denominator.mul(d.denominator));
         return result;
     }
     // for gas saving
     function simpleMultiplyTuple(Tuple memory a, Tuple memory b)internal view zeroDivide(a) zeroDivide(b) returns(Tuple memory c){
-        c = abbreviate(Tuple(a.numerator * b.numerator , a.denominator * b.denominator));
+        c = abbreviate(Tuple(a.numerator.mul(b.numerator) , a.denominator.mul(b.denominator)));
         return c;
     }
 
