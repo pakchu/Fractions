@@ -1,9 +1,12 @@
 pragma solidity ^ 0.8.0;
 
 import './SafeMath128.sol';
+import './SafeMath.sol';
 
 library FractionTuple128 {
     using SafeMath128 for uint128;
+    using SafeMath for uint256;
+
     // defining tuple for fraction expression
     struct Tuple {
         uint128 numerator;
