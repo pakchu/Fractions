@@ -18,7 +18,7 @@ library FractionTuple128 {
             return (a,b);
         } else return (b,a);
     }
-
+    // for fixed numbers translated from tuples
     function sort256(uint256 a, uint256 b) internal pure returns(uint256, uint256){
         if (a > b){
             return (a,b);
@@ -39,15 +39,15 @@ library FractionTuple128 {
     function lcm(uint128 a, uint128 b) internal view returns(uint128){
         return (a / gcd(a,b)).mul(b);
     }
-    // is tuple a reduced fraction 
-    function abbreviatable(Tuple memory wantedTuple) internal view returns(bool) {
-        if(gcd(wantedTuple.numerator,wantedTuple.denominator) != 1) return true;
-        else return false;
-    }
-    // check if denominator is not 0
+    // check if a tuple's denominator is 0
     modifier zeroDivide(Tuple memory tuple) {
         require (tuple.denominator != 0, "denominator cannot be 0");
         _;
+    }
+    // is tuple a reduced fraction 
+    function abbreviatable(Tuple memory wantedTuple) internal view zeroDivide(wantedTuple) returns(bool) {
+        if(gcd(wantedTuple.numerator,wantedTuple.denominator) != 1) return true;
+        else return false;
     }
     // making tuple into reduced fraction
     function abbreviate(Tuple memory wantedTuple)internal view zeroDivide(wantedTuple) returns (Tuple memory){
@@ -60,7 +60,6 @@ library FractionTuple128 {
     function reverseTuple(Tuple memory wantedTuple) internal view zeroDivide(wantedTuple) returns(Tuple memory result){
         require(wantedTuple.numerator != 0, "denominator cannot be 0");
         result = Tuple( wantedTuple.denominator, wantedTuple.numerator );
-        return result;
     }
     // finding lcm of denominators of two tuples
     function commonDenominator(Tuple memory a, Tuple memory b) internal view zeroDivide(a) zeroDivide(b) returns(Tuple memory, Tuple memory){
@@ -70,7 +69,7 @@ library FractionTuple128 {
         return (Tuple(numerator0, lcm), Tuple(numerator1, lcm));
     }
     
-    function biggerTuple(Tuple memory big, Tuple memory small)internal view zeroDivide(big) zeroDivide(small) returns(bool) {
+    function isbiggerTuple(Tuple memory big, Tuple memory small)internal view zeroDivide(big) zeroDivide(small) returns(bool) {
         Tuple memory c;
         Tuple memory d;
         (c, d) = commonDenominator(big, small);
@@ -78,17 +77,23 @@ library FractionTuple128 {
         else return false;
     }
 
+    function biggerTuple(Tuple memory a, Tuple memory b)internal view zeroDivide(a) zeroDivide(b) returns(Tuple memory) {
+        Tuple memory c;
+        Tuple memory d;
+        (c, d) = commonDenominator(a, b);
+        if (c.numerator >= d.numerator) return a;
+        else return b;
+    }
+
     function addTuple(Tuple memory a, Tuple memory b) internal view zeroDivide(a) zeroDivide(b) returns(Tuple memory c){
         (a,b) = commonDenominator(a,b);
         c = abbreviate(Tuple( a.numerator.add(b.numerator) , a.denominator ));
-        return c;
     }
     
     function subtractTuple(Tuple memory a, Tuple memory b) internal view zeroDivide(a) zeroDivide(b) returns(Tuple memory c){
-        require( biggerTuple(a, b), "Tuple: Underflow" );
+        require( isbiggerTuple(a, b), "Tuple: Underflow" );
         (a,b) = commonDenominator(a,b);
         c = abbreviate(Tuple( a.numerator.sub(b.numerator) , a.denominator ));
-        return c;
     }
     
     function multiplyTuple(Tuple memory a, Tuple memory b) internal view zeroDivide(a) zeroDivide(b) returns(Tuple memory result) {
@@ -97,24 +102,20 @@ library FractionTuple128 {
         Tuple memory c = abbreviate(Tuple( a.numerator , b.denominator));
         Tuple memory d = abbreviate(Tuple( b.numerator , a.denominator));
         result = Tuple( c.numerator.mul(d.numerator) , c.denominator.mul(d.denominator));
-        return result;
     }
     // for gas saving
     function simpleMultiplyTuple(Tuple memory a, Tuple memory b)internal view zeroDivide(a) zeroDivide(b) returns(Tuple memory c){
-        c = abbreviate(Tuple(a.numerator.mul(b.numerator) , a.denominator.mul(b.denominator)));
-        return c;
+        c = Tuple(a.numerator.mul(b.numerator) , a.denominator.mul(b.denominator));
     }
 
     function divideTuple(Tuple memory a, Tuple memory dividingTuple) zeroDivide(a) zeroDivide(dividingTuple) internal view returns(Tuple memory result){
         require(dividingTuple.numerator != 0, "denominator cannot be 0");
         result = multiplyTuple(a, reverseTuple(dividingTuple));
-        return result;
     }
     // for gas saving
     function simpleDivideTuple(Tuple memory a, Tuple memory dividingTuple)internal view zeroDivide(a) zeroDivide(dividingTuple) returns(Tuple memory c) {
         require( dividingTuple.numerator != 0, "denominator cannot be 0");
         c = simpleMultiplyTuple(a, reverseTuple(dividingTuple));
-        return c;
     }
     
     uint256 constant Q256 = 2 ** 128;
