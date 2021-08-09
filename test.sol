@@ -3,7 +3,6 @@ pragma solidity ^0.8.0;
 import './libraries/FractionTuple.sol';
 
 contract testing{
-    
     function _sort(uint256 a, uint256 b) external view returns(uint256, uint256){
         return FractionTuple.sort(a,b);
     }
