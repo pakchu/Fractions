@@ -90,10 +90,10 @@ library FractionTuple128 {
         c = abbreviate(Tuple( a.numerator.add(b.numerator) , a.denominator ));
     }
     
-    function subtractTuple(Tuple memory a, Tuple memory b) internal view zeroDivide(a) zeroDivide(b) returns(Tuple memory c){
-        require( isbiggerTuple(a, b), "Tuple: Underflow" );
-        (a,b) = commonDenominator(a,b);
-        c = abbreviate(Tuple( a.numerator.sub(b.numerator) , a.denominator ));
+    function subtractTuple(Tuple memory a, Tuple memory subtractingTuple) internal view zeroDivide(a) zeroDivide(subtractingTuple) returns(Tuple memory c){
+        require( isbiggerTuple(a, subtractingTuple), "Tuple: Underflow" );
+        (a,subtractingTuple) = commonDenominator(a,subtractingTuple);
+        c = abbreviate(Tuple( a.numerator.sub(subtractingTuple.numerator) , a.denominator ));
     }
     
     function multiplyTuple(Tuple memory a, Tuple memory b) internal view zeroDivide(a) zeroDivide(b) returns(Tuple memory result) {
@@ -121,7 +121,7 @@ library FractionTuple128 {
     uint256 constant Q256 = 2 ** 128;
     // 1 to 1 corresponds between tuple(abbreviated) and fixed point, 
     // addition and subtraction keeps the correspondence but multiplication and division do not.
-    // also their order by size also kept, so using function sort256() gives info about order of tuples' sizes
+    // also their order by size kept, so using function sort256() gives info about order of tuples' sizes
     // used the idea of UQ112*112
     function toFixed(Tuple memory a) internal view zeroDivide(a) returns(uint256 result){
         result = uint256(a.numerator).mul(Q256) / uint256(a.denominator);
