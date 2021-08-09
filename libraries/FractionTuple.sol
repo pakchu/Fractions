@@ -67,7 +67,7 @@ library FractionTuple {
         else return false;
     }
 
-    function biggerTuple(Tuple memory a, Tuple memory b)internal view zeroDivide(big) zeroDivide(b) returns(Tuple memory) {
+    function biggerTuple(Tuple memory a, Tuple memory b)internal view zeroDivide(a) zeroDivide(b) returns(Tuple memory) {
         Tuple memory c;
         Tuple memory d;
         (c, d) = commonDenominator(a, b);
