@@ -2,7 +2,7 @@ pragma solidity ^0.8.0;
 
 import './libraries/FractionTuple128.sol';
 
-contract testing128{    
+contract testing128{
     function _sort(uint128 a, uint128 b) external view returns(uint128, uint128){
         return FractionTuple128.sort(a,b);
     }
