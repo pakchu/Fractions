@@ -74,16 +74,24 @@ library FractionTuple {
         if (c.numerator >= d.numerator) return a;
         else return b;
     }
-
-    function addTuple(Tuple memory a, Tuple memory b) internal view zeroDivide(a) zeroDivide(b) returns(Tuple memory c){
+    // skipping abbreviation after addition
+    function simpleAddTuple(Tuple memory a, Tuple memory b) internal view zeroDivide(a) zeroDivide(b) returns(Tuple memory c){
         (a,b) = commonDenominator(a,b);
-        c = abbreviate(Tuple( a.numerator.add(b.numerator) , a.denominator ));
+        c = Tuple( a.numerator.add(b.numerator) , a.denominator );
     }
     
-    function subtractTuple(Tuple memory a, Tuple memory subtractingTuple) internal view zeroDivide(a) zeroDivide(subtractingTuple) returns(Tuple memory c){
+    function addTuple(Tuple memory a, Tuple memory b) internal view zeroDivide(a) zeroDivide(b) returns(Tuple memory c){
+        c = abbreviate(simpleAddTuple(a,b));
+    }
+    // skipping abbreviation after subtraction
+    function simpleSubtractTuple(Tuple memory a, Tuple memory subtractingTuple) internal view zeroDivide(a) zeroDivide(subtractingTuple) returns(Tuple memory c){
         require( isbiggerTuple(a, subtractingTuple), "Tuple: Underflow" );
         (a,subtractingTuple) = commonDenominator(a,subtractingTuple);
-        c = abbreviate(Tuple( a.numerator.sub(subtractingTuple.numerator) , a.denominator ));
+        c = Tuple( a.numerator.sub(subtractingTuple.numerator) , a.denominator );
+    }
+
+    function subtractTuple(Tuple memory a, Tuple memory subtractingTuple) internal view zeroDivide(a) zeroDivide(subtractingTuple) returns(Tuple memory c){
+        c = abbreviate(simpleSubtractTuple(a,subtractingTuple));
     }
     
     function multiplyTuple(Tuple memory a, Tuple memory b) internal view zeroDivide(a) zeroDivide(b) returns(Tuple memory result) {
