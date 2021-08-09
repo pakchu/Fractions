@@ -30,8 +30,14 @@ contract testing{
     function _biggerTuple(FractionTuple.Tuple memory a, FractionTuple.Tuple memory b) external view returns(FractionTuple.Tuple memory){
         return FractionTuple.biggerTuple(a, b);
     }
+    function _simpleAddTuple(FractionTuple.Tuple memory a, FractionTuple.Tuple memory b) external view returns(FractionTuple.Tuple memory){
+        return FractionTuple.simpleAddTuple(a,b);
+    }
     function _addTuple(FractionTuple.Tuple memory a, FractionTuple.Tuple memory b) external view returns(FractionTuple.Tuple memory){
         return FractionTuple.addTuple(a,b);
+    }
+    function _simpleSubtractTuple(FractionTuple.Tuple memory a, FractionTuple.Tuple memory subtractingTuple) external view returns(FractionTuple.Tuple memory){
+        return FractionTuple.simpleSubtractTuple(a,subtractingTuple);
     }
     function _subtractTuple(FractionTuple.Tuple memory a, FractionTuple.Tuple memory subtractingTuple) external view returns(FractionTuple.Tuple memory){
         return FractionTuple.subtractTuple(a,subtractingTuple);
