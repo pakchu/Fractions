@@ -33,8 +33,14 @@ contract testing128{
     function _biggerTuple(FractionTuple128.Tuple memory a, FractionTuple128.Tuple memory b) external view returns(FractionTuple128.Tuple memory){
         return FractionTuple128.biggerTuple(a, b);
     }
+    function _simpleAddTuple(FractionTuple128.Tuple memory a, FractionTuple128.Tuple memory b) external view returns(FractionTuple128.Tuple memory){
+        return FractionTuple128.simpleAddTuple(a,b);
+    }
     function _addTuple(FractionTuple128.Tuple memory a, FractionTuple128.Tuple memory b) external view returns(FractionTuple128.Tuple memory){
         return FractionTuple128.addTuple(a,b);
+    }
+    function _simpleSubtractTuple(FractionTuple128.Tuple memory a, FractionTuple128.Tuple memory subtractingTuple) external view returns(FractionTuple128.Tuple memory){
+        return FractionTuple128.simpleSubtractTuple(a,subtractingTuple);
     }
     function _subtractTuple(FractionTuple128.Tuple memory a, FractionTuple128.Tuple memory subtractingTuple) external view returns(FractionTuple128.Tuple memory){
         return FractionTuple128.subtractTuple(a,subtractingTuple);
