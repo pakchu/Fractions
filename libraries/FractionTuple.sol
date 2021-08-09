@@ -1,33 +1,23 @@
 pragma solidity ^ 0.8.0;
 
-import './SafeMath128.sol';
 import './SafeMath.sol';
 
-library FractionTuple128 {
-    using SafeMath128 for uint128;
+library FractionTuple {
     using SafeMath for uint256;
-
     // defining tuple for fraction expression
     struct Tuple {
-        uint128 numerator;
-        uint128 denominator;
+        uint256 numerator;
+        uint256 denominator;
     }
     // odering numbers by their size
-    function sort(uint128 a, uint128 b) internal pure returns(uint128, uint128){
+    function sort(uint256 a, uint256 b) internal pure returns(uint256, uint256){
         if (a > b){
             return (a,b);
         } else return (b,a);
     }
-    // for fixed numbers translated from tuples
-    function sort256(uint256 a, uint256 b) internal pure returns(uint256, uint256){
-        if (a > b){
-            return (a,b);
-        } else return (b,a);        
-    }
-
     // function for getting greatest common diviosor which is pretty useful operating fractions
     // using Euclidean Algoithm, you can find info's here: https://en.wikipedia.org/wiki/Euclidean_algorithm
-    function gcd(uint128 a, uint128 b) internal view returns(uint128){
+    function gcd(uint256 a, uint256 b) internal view returns(uint256){
         (a,b) = sort(a,b);
         while(b != 0 ) {
             a = a % b;
@@ -36,15 +26,15 @@ library FractionTuple128 {
         return a;
     }
     // function for getting least common multiplier
-    function lcm(uint128 a, uint128 b) internal view returns(uint128){
-        return (a / gcd(a,b)).mul(b);
+    function lcm(uint256 a, uint256 b) internal view returns(uint256){
+        return (a / gcd(a,b) ).mul(b);
     }
     // check if a tuple's denominator is 0
     modifier zeroDivide(Tuple memory tuple) {
         require (tuple.denominator != 0, "denominator cannot be 0");
         _;
     }
-    // is tuple a reduced fraction 
+    // is tuple a reducible fraction 
     function abbreviatable(Tuple memory wantedTuple) internal view zeroDivide(wantedTuple) returns(bool) {
         if(gcd(wantedTuple.numerator,wantedTuple.denominator) != 1) return true;
         else return false;
@@ -52,7 +42,7 @@ library FractionTuple128 {
     // making tuple into reduced fraction
     function abbreviate(Tuple memory wantedTuple)internal view zeroDivide(wantedTuple) returns (Tuple memory){
         if (abbreviatable(wantedTuple)) {
-            uint128 _gcd = gcd(wantedTuple.numerator, wantedTuple.denominator);
+            uint256 _gcd = gcd(wantedTuple.numerator, wantedTuple.denominator);
             return Tuple(wantedTuple.numerator / _gcd, wantedTuple.denominator / _gcd);
         } else return wantedTuple;
     }
@@ -63,9 +53,9 @@ library FractionTuple128 {
     }
     // finding lcm of denominators of two tuples
     function commonDenominator(Tuple memory a, Tuple memory b) internal view zeroDivide(a) zeroDivide(b) returns(Tuple memory, Tuple memory){
-        uint128 lcm = lcm(a.denominator, b.denominator);
-        uint128 numerator0 = (lcm / a.denominator).mul(a.numerator);
-        uint128 numerator1 = (lcm / b.denominator).mul(b.numerator);
+        uint256 lcm = lcm(a.denominator, b.denominator);
+        uint256 numerator0 = (lcm / a.denominator).mul(a.numerator);
+        uint256 numerator1 = (lcm / b.denominator).mul(b.numerator);
         return (Tuple(numerator0, lcm), Tuple(numerator1, lcm));
     }
     
@@ -77,7 +67,7 @@ library FractionTuple128 {
         else return false;
     }
 
-    function biggerTuple(Tuple memory a, Tuple memory b)internal view zeroDivide(a) zeroDivide(b) returns(Tuple memory) {
+    function biggerTuple(Tuple memory a, Tuple memory b)internal view zeroDivide(big) zeroDivide(b) returns(Tuple memory) {
         Tuple memory c;
         Tuple memory d;
         (c, d) = commonDenominator(a, b);
@@ -90,10 +80,10 @@ library FractionTuple128 {
         c = abbreviate(Tuple( a.numerator.add(b.numerator) , a.denominator ));
     }
     
-    function subtractTuple(Tuple memory a, Tuple memory b) internal view zeroDivide(a) zeroDivide(b) returns(Tuple memory c){
-        require( isbiggerTuple(a, b), "Tuple: Underflow" );
-        (a,b) = commonDenominator(a,b);
-        c = abbreviate(Tuple( a.numerator.sub(b.numerator) , a.denominator ));
+    function subtractTuple(Tuple memory a, Tuple memory subtractingTuple) internal view zeroDivide(a) zeroDivide(subtractingTuple) returns(Tuple memory c){
+        require( isbiggerTuple(a, subtractingTuple), "Tuple: Underflow" );
+        (a,subtractingTuple) = commonDenominator(a,subtractingTuple);
+        c = abbreviate(Tuple( a.numerator.sub(subtractingTuple.numerator) , a.denominator ));
     }
     
     function multiplyTuple(Tuple memory a, Tuple memory b) internal view zeroDivide(a) zeroDivide(b) returns(Tuple memory result) {
@@ -116,14 +106,5 @@ library FractionTuple128 {
     function simpleDivideTuple(Tuple memory a, Tuple memory dividingTuple)internal view zeroDivide(a) zeroDivide(dividingTuple) returns(Tuple memory c) {
         require( dividingTuple.numerator != 0, "denominator cannot be 0");
         c = simpleMultiplyTuple(a, reverseTuple(dividingTuple));
-    }
-    
-    uint256 constant Q256 = 2 ** 128;
-    // 1 to 1 corresponds between tuple(abbreviated) and fixed point, 
-    // addition and subtraction keeps the correspondence but multiplication and division do not.
-    // also their order by size also kept, so using function sort256() gives info about order of tuples' sizes
-    // used the idea of UQ112*112
-    function toFixed(Tuple memory a) internal view zeroDivide(a) returns(uint256 result){
-        result = uint256(a.numerator).mul(Q256) / uint256(a.denominator);
     }
 }
