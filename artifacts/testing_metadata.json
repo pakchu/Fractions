@@ -1,0 +1,918 @@
+{
+	"compiler": {
+		"version": "0.8.4+commit.c7e474f2"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "numerator",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "denominator",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct FractionTuple.Tuple",
+						"name": "wantedTuple",
+						"type": "tuple"
+					}
+				],
+				"name": "_abbreviatable",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "numerator",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "denominator",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct FractionTuple.Tuple",
+						"name": "wantedTuple",
+						"type": "tuple"
+					}
+				],
+				"name": "_abbreviate",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "numerator",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "denominator",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct FractionTuple.Tuple",
+						"name": "",
+						"type": "tuple"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "numerator",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "denominator",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct FractionTuple.Tuple",
+						"name": "a",
+						"type": "tuple"
+					},
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "numerator",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "denominator",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct FractionTuple.Tuple",
+						"name": "b",
+						"type": "tuple"
+					}
+				],
+				"name": "_addTuple",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "numerator",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "denominator",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct FractionTuple.Tuple",
+						"name": "",
+						"type": "tuple"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "numerator",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "denominator",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct FractionTuple.Tuple",
+						"name": "a",
+						"type": "tuple"
+					},
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "numerator",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "denominator",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct FractionTuple.Tuple",
+						"name": "b",
+						"type": "tuple"
+					}
+				],
+				"name": "_biggerTuple",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "numerator",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "denominator",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct FractionTuple.Tuple",
+						"name": "",
+						"type": "tuple"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "numerator",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "denominator",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct FractionTuple.Tuple",
+						"name": "a",
+						"type": "tuple"
+					},
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "numerator",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "denominator",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct FractionTuple.Tuple",
+						"name": "b",
+						"type": "tuple"
+					}
+				],
+				"name": "_commonDenominator",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "numerator",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "denominator",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct FractionTuple.Tuple",
+						"name": "",
+						"type": "tuple"
+					},
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "numerator",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "denominator",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct FractionTuple.Tuple",
+						"name": "",
+						"type": "tuple"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "numerator",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "denominator",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct FractionTuple.Tuple",
+						"name": "a",
+						"type": "tuple"
+					},
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "numerator",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "denominator",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct FractionTuple.Tuple",
+						"name": "dividingTuple",
+						"type": "tuple"
+					}
+				],
+				"name": "_divideTuple",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "numerator",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "denominator",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct FractionTuple.Tuple",
+						"name": "",
+						"type": "tuple"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "a",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "b",
+						"type": "uint256"
+					}
+				],
+				"name": "_gcd",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "numerator",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "denominator",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct FractionTuple.Tuple",
+						"name": "big",
+						"type": "tuple"
+					},
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "numerator",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "denominator",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct FractionTuple.Tuple",
+						"name": "small",
+						"type": "tuple"
+					}
+				],
+				"name": "_isbiggerTuple",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "a",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "b",
+						"type": "uint256"
+					}
+				],
+				"name": "_lcm",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "numerator",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "denominator",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct FractionTuple.Tuple",
+						"name": "a",
+						"type": "tuple"
+					},
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "numerator",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "denominator",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct FractionTuple.Tuple",
+						"name": "b",
+						"type": "tuple"
+					}
+				],
+				"name": "_multiplyTuple",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "numerator",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "denominator",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct FractionTuple.Tuple",
+						"name": "",
+						"type": "tuple"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "numerator",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "denominator",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct FractionTuple.Tuple",
+						"name": "wantedTuple",
+						"type": "tuple"
+					}
+				],
+				"name": "_reverseTuple",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "numerator",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "denominator",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct FractionTuple.Tuple",
+						"name": "",
+						"type": "tuple"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "numerator",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "denominator",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct FractionTuple.Tuple",
+						"name": "a",
+						"type": "tuple"
+					},
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "numerator",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "denominator",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct FractionTuple.Tuple",
+						"name": "b",
+						"type": "tuple"
+					}
+				],
+				"name": "_simpleAddTuple",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "numerator",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "denominator",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct FractionTuple.Tuple",
+						"name": "",
+						"type": "tuple"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "numerator",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "denominator",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct FractionTuple.Tuple",
+						"name": "a",
+						"type": "tuple"
+					},
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "numerator",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "denominator",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct FractionTuple.Tuple",
+						"name": "dividingTuple",
+						"type": "tuple"
+					}
+				],
+				"name": "_simpleDivideTuple",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "numerator",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "denominator",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct FractionTuple.Tuple",
+						"name": "",
+						"type": "tuple"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "numerator",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "denominator",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct FractionTuple.Tuple",
+						"name": "a",
+						"type": "tuple"
+					},
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "numerator",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "denominator",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct FractionTuple.Tuple",
+						"name": "b",
+						"type": "tuple"
+					}
+				],
+				"name": "_simpleMultiplyTuple",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "numerator",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "denominator",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct FractionTuple.Tuple",
+						"name": "",
+						"type": "tuple"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "numerator",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "denominator",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct FractionTuple.Tuple",
+						"name": "a",
+						"type": "tuple"
+					},
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "numerator",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "denominator",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct FractionTuple.Tuple",
+						"name": "subtractingTuple",
+						"type": "tuple"
+					}
+				],
+				"name": "_simpleSubtractTuple",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "numerator",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "denominator",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct FractionTuple.Tuple",
+						"name": "",
+						"type": "tuple"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "a",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "b",
+						"type": "uint256"
+					}
+				],
+				"name": "_sort",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "numerator",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "denominator",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct FractionTuple.Tuple",
+						"name": "a",
+						"type": "tuple"
+					},
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "numerator",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "denominator",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct FractionTuple.Tuple",
+						"name": "subtractingTuple",
+						"type": "tuple"
+					}
+				],
+				"name": "_subtractTuple",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "numerator",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "denominator",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct FractionTuple.Tuple",
+						"name": "",
+						"type": "tuple"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"test.sol": "testing"
+		},
+		"evmVersion": "istanbul",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"libraries/FractionTuple.sol": {
+			"keccak256": "0xad7ed7e299922c09de0675db4d8a9f6deb2f8dba2d344eadd1a35608d2943ebd",
+			"urls": [
+				"bzz-raw://869f7a1149ca55e4f46880c69be9f820b21c6db29d97c21a972e1eab8e61a701",
+				"dweb:/ipfs/QmbNKZFD4gGYE4iouq6M63ryXZK87CktqfvusEBNNbsVac"
+			]
+		},
+		"libraries/SafeMath.sol": {
+			"keccak256": "0xb3d2266dd8836a3aa0cfc8ebaf846180c7c0e0aafa87f6d780e33f3aa800efb3",
+			"urls": [
+				"bzz-raw://d91a961f072ba7eab75807725a2e442105f5df5f75be99a3dcf4f6dc6e8597f2",
+				"dweb:/ipfs/QmXwSNpcfMqakqYTZ3JFd3EN1ejsLjjTtUKgFNQrLG7Qko"
+			]
+		},
+		"test.sol": {
+			"keccak256": "0xf2f9de6b5b35ac8b636e1d8d74550a76dd2dff47e96c419af66d095c47a024c4",
+			"urls": [
+				"bzz-raw://65a6798310bd91c417eec2f485f16d634fbd3be031a7495ad1d82152860f4c10",
+				"dweb:/ipfs/QmViG2VB8MPTNAe29vqpXV9GDMQLFVwnWn2AJmAVHq4m2d"
+			]
+		}
+	},
+	"version": 1
+}
