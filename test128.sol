@@ -74,4 +74,13 @@ contract testing128{
         require( _a == FractionTuple128.toFixed(c) && _b == FractionTuple128.toFixed(d),"something went wrong, plz let me know if this message shows");
         return (_a, c);
     }
+    function _antiOverflow(FractionTuple128.Tuple memory a, uint128 divider) external view returns(FractionTuple128.Tuple memory){
+        return FractionTuple128.antiOverflow(a, divider);
+    }
+    function _toMixedFraction(FractionTuple128.Tuple memory a) external view returns(uint128 integer, FractionTuple128.Tuple memory fraction){
+        (integer, fraction) = FractionTuple128.toMixedFraction(a);
+    }
+    function _toFraction(uint128 integer, FractionTuple128.Tuple memory fraction) external view returns(FractionTuple128.Tuple memory result){
+        result = FractionTuple128.toFraction(integer, fraction);
+    }
 }
