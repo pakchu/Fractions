@@ -126,13 +126,12 @@ library FractionTuple128 {
         require( dividingTuple.numerator != 0, "denominator cannot be 0");
         c = simpleMultiplyTuple(a, reverseTuple(dividingTuple));
     }
-    
-    uint256 constant Q256 = 2 ** 128;
     // 1 to 1 corresponds between tuple(abbreviated) and fixed point, 
     // addition and subtraction keeps the correspondence but multiplication and division do not.
     // also their order by size also kept, so using function sort256() gives info about order of tuples' sizes
     // used the idea of UQ112*112
     function toFixed(Tuple memory a) internal pure zeroDivide(a) returns(uint256 result){
+        uint256 Q256 = 2 ** 128;
         result = uint256(a.numerator).mul(Q256) / uint256(a.denominator);
     }
     // by adjusting divider, it can help the tuple not to overflow.
