@@ -84,7 +84,7 @@ library FractionTuple128 {
         if (c.numerator >= d.numerator) return a;
         else return b;
     }
-    // skipping abbreviation after addition
+    // for some cases which do not need abbreviation
     function simpleAddTuple(Tuple memory a, Tuple memory b) internal pure zeroDivide(a) zeroDivide(b) returns(Tuple memory c){
         (a,b) = commonDenominator(a,b);
         c = Tuple( a.numerator.add(b.numerator) , a.denominator );
@@ -93,7 +93,7 @@ library FractionTuple128 {
     function addTuple(Tuple memory a, Tuple memory b) internal pure zeroDivide(a) zeroDivide(b) returns(Tuple memory c){
         c = abbreviate(simpleAddTuple(a,b));
     }
-    // skipping abbreviation after subtraction
+    // for some cases which do not need abbreviation
     function simpleSubtractTuple(Tuple memory a, Tuple memory subtractingTuple) internal pure zeroDivide(a) zeroDivide(subtractingTuple) returns(Tuple memory c){
         require( isbiggerTuple(a, subtractingTuple), "Tuple: Underflow" );
         (a,subtractingTuple) = commonDenominator(a,subtractingTuple);
@@ -112,7 +112,7 @@ library FractionTuple128 {
         Tuple memory d = abbreviate(Tuple( b.numerator , a.denominator));
         result = Tuple( c.numerator.mul(d.numerator) , c.denominator.mul(d.denominator));
     }
-    // for gas saving
+    // for some cases which do not need abbreviation
     function simpleMultiplyTuple(Tuple memory a, Tuple memory b)internal pure zeroDivide(a) zeroDivide(b) returns(Tuple memory c){
         c = Tuple(a.numerator.mul(b.numerator) , a.denominator.mul(b.denominator));
     }
@@ -121,7 +121,7 @@ library FractionTuple128 {
         require(dividingTuple.numerator != 0, "denominator cannot be 0");
         result = multiplyTuple(a, reverseTuple(dividingTuple));
     }
-    // for gas saving
+    // for some cases which do not need abbreviation
     function simpleDivideTuple(Tuple memory a, Tuple memory dividingTuple)internal pure zeroDivide(a) zeroDivide(dividingTuple) returns(Tuple memory c) {
         require( dividingTuple.numerator != 0, "denominator cannot be 0");
         c = simpleMultiplyTuple(a, reverseTuple(dividingTuple));
