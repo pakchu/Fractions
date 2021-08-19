@@ -57,10 +57,10 @@ contract testing{
     function _antiOverflow(FractionTuple.Tuple memory a, uint256 divider) external view returns(FractionTuple.Tuple memory){
         return FractionTuple.antiOverflow(a, divider);
     }
-    function _toMixedFraction(FractionTuple.Tuple memory a) external view returns(uint256 integer, FractionTuple.Tuple memory fraction){
-        (integer, fraction) = FractionTuple.toMixedFraction(a);
+    function _fractionToMixed(FractionTuple.Tuple memory a) external view returns(uint256 integer, FractionTuple.Tuple memory fraction){
+        (integer, fraction) = FractionTuple.fractionToMixed(a);
     }
-    function _toFraction(uint256 integer, FractionTuple.Tuple memory fraction) external view returns(FractionTuple.Tuple memory result){
-        result = FractionTuple.toFraction(integer, fraction);
+    function _mixedToFraction(uint256 integer, FractionTuple.Tuple memory fraction) external view returns(FractionTuple.Tuple memory result){
+        result = FractionTuple.mixedToFraction(integer, fraction);
     }
 }

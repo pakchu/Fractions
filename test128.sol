@@ -77,10 +77,10 @@ contract testing128{
     function _antiOverflow(FractionTuple128.Tuple memory a, uint128 divider) external view returns(FractionTuple128.Tuple memory){
         return FractionTuple128.antiOverflow(a, divider);
     }
-    function _toMixedFraction(FractionTuple128.Tuple memory a) external view returns(uint128 integer, FractionTuple128.Tuple memory fraction){
-        (integer, fraction) = FractionTuple128.toMixedFraction(a);
+    function _fractionToMixed(FractionTuple128.Tuple memory a) external view returns(uint128 integer, FractionTuple128.Tuple memory fraction){
+        (integer, fraction) = FractionTuple128._fractionToMixed(a);
     }
-    function _toFraction(uint128 integer, FractionTuple128.Tuple memory fraction) external view returns(FractionTuple128.Tuple memory result){
-        result = FractionTuple128.toFraction(integer, fraction);
+    function _mixedToFraction(uint128 integer, FractionTuple128.Tuple memory fraction) external view returns(FractionTuple128.Tuple memory result){
+        result = FractionTuple128.mixedToFraction(integer, fraction);
     }
 }

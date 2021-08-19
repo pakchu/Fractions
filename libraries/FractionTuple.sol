@@ -121,11 +121,14 @@ library FractionTuple {
     function antiOverflow(Tuple memory a, uint256 divider) internal pure zeroDivide(a) returns(Tuple memory){
         return Tuple(a.numerator / divider, a.denominator / divider);
     }
-    function toMixedFraction(Tuple memory a) internal pure zeroDivide(a) returns(uint256 integer, Tuple memory fraction){
+    function fractionToMixed(Tuple memory a) internal pure zeroDivide(a) returns(uint256 integer, Tuple memory fraction){
         integer = a.numerator / a.denominator;
         fraction = abbreviate(Tuple(a.numerator.sub((integer.mul(a.denominator))), a.denominator));
     }
-    function toFraction(uint256 integer, Tuple memory fraction) internal pure zeroDivide(fraction) returns(Tuple memory result){
+    // by giving an uint and [0,1] to this function, it can also work as translator uint -> tuple
+    // therefore, using mixedToFraction() -> any computing functions given -> mixedToFraction() -> (result uint, ) 
+    // and the result uint can be more precise than just using uint computations, since uint's computation always round down more than tuple's round down    
+    function mixedToFraction(uint256 integer, Tuple memory fraction) internal pure zeroDivide(fraction) returns(Tuple memory result){
         result = abbreviate(Tuple(fraction.numerator.add( integer.mul(fraction.denominator)), fraction.denominator));
     }
 }
