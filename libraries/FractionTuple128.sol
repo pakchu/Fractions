@@ -145,7 +145,7 @@ library FractionTuple128 {
         fraction = abbreviate(Tuple(a.numerator.sub((integer.mul(a.denominator))), a.denominator));
     }
     // by giving an uint and [0,1] to this function, it can also work as translator uint -> tuple
-    // therefore, using mixedToFraction() -> any computing functions given -> mixedToFraction() -> (result uint, ) 
+    // therefore, using mixedToFraction() -> any computing functions given -> fractionToMixed() -> (result uint, ) 
     // and the result uint can be more precise than just using uint computations, since uint's computation always round down more than tuple's round down
     function mixedToFraction(uint128 integer, Tuple memory fraction) internal pure zeroDivide(fraction) returns(Tuple memory result){
         result = abbreviate(Tuple(fraction.numerator.add(integer.mul(fraction.denominator)), fraction.denominator));
