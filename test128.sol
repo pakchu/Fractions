@@ -78,7 +78,7 @@ contract testing128{
         return FractionTuple128.antiOverflow(a, divider);
     }
     function _fractionToMixed(FractionTuple128.Tuple memory a) external view returns(uint128 integer, FractionTuple128.Tuple memory fraction){
-        (integer, fraction) = FractionTuple128._fractionToMixed(a);
+        (integer, fraction) = FractionTuple128.fractionToMixed(a);
     }
     function _mixedToFraction(uint128 integer, FractionTuple128.Tuple memory fraction) external view returns(FractionTuple128.Tuple memory result){
         result = FractionTuple128.mixedToFraction(integer, fraction);
