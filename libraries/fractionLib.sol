@@ -113,9 +113,9 @@ library fractionLib {
     function preventOverflow(Fraction memory frac, uint256 divider) internal pure denominatorIsNotZero(frac) returns(Fraction memory){
         return abbreviate(Fraction(frac.numerator / divider, frac.denominator / divider));
     }
-    function fractionToMixed(Fraction memory a) internal pure denominatorIsNotZero(a) returns(uint256 integer, Fraction memory fraction){
-        integer = a.numerator / a.denominator;
-        fraction = abbreviate(Fraction(a.numerator - (integer * a.denominator), a.denominator));
+    function fractionToMixed(Fraction memory frac) internal pure denominatorIsNotZero(frac) returns(uint256 integer, Fraction memory fraction){
+        integer = frac.numerator / frac.denominator;
+        fraction = abbreviate(Fraction(frac.numerator - (integer * frac.denominator), frac.denominator));
     }
     // by giving an uint and [0,1] to this function, it can also work as translator uint -> Fraction
     // therefore, using mixedToFraction() -> any computing functions given -> fractionToMixed() -> (result in uint, ) 
