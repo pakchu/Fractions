@@ -1,9 +1,8 @@
 pragma solidity ^ 0.8.0;
 
-import './SafeMath.sol';
+// with Solidity 0.8 or later, the compiler's built in overflow checks made this library does not need to depend on SafeMath
 
 library fractionLib {
-    using SafeMath for uint256;
     // defining a strtuct for fraction expression
     struct Fraction {
         uint256 numerator;
@@ -17,10 +16,10 @@ library fractionLib {
     }
     // function for getting greatest common diviosor which is pretty useful operating fractions
     // using Euclidean Algoithm, you can find info's here: https://en.wikipedia.org/wiki/Euclidean_algorithm
-    // it has time complexity of: O(log(min(a,b))) = O(log(n)), and nice proof for this: https://www.geeksforgeeks.org/time-complexity-of-euclidean-algorithm/
+    // it has time complexity of: O(log(min(a,b))), and a nice proof for this: https://www.geeksforgeeks.org/time-complexity-of-euclidean-algorithm/
     function gcd(uint256 a, uint256 b) internal pure returns(uint256){
         (a,b) = sort(a,b);
-        while(b != 0 ) {
+        while(b != 0) {
             a = a % b;
             (a,b) = sort(a,b);
         }
@@ -28,7 +27,7 @@ library fractionLib {
     }
     // function for getting least common multiplier
     function lcm(uint256 a, uint256 b) internal pure returns(uint256){
-        return (a / gcd(a,b) ).mul(b);
+        return (a / gcd(a,b) ) * b;
     }
     // check if a Fraction's denominator is 0
     modifier denominatorIsNotZero(Fraction memory frac) {
@@ -55,8 +54,8 @@ library fractionLib {
     // finding lcm of denominators of two Fractions
     function reduceToCommonDenomiantor(Fraction memory a, Fraction memory b) internal pure denominatorIsNotZero(a) denominatorIsNotZero(b) returns(Fraction memory, Fraction memory){
         uint256 lcm = lcm(a.denominator, b.denominator);
-        uint256 numerator0 = (lcm / a.denominator).mul(a.numerator);
-        uint256 numerator1 = (lcm / b.denominator).mul(b.numerator);
+        uint256 numerator0 = (lcm / a.denominator) * a.numerator;
+        uint256 numerator1 = (lcm / b.denominator) * b.numerator;
         return (Fraction(numerator0, lcm), Fraction(numerator1, lcm));
     }
     
@@ -71,7 +70,7 @@ library fractionLib {
     // for some uses which do not need abbreviation
     function _add(Fraction memory a, Fraction memory b) internal pure denominatorIsNotZero(a) denominatorIsNotZero(b) returns(Fraction memory c){
         (a,b) = reduceToCommonDenomiantor(a,b);
-        c = Fraction( a.numerator.add(b.numerator) , a.denominator );
+        c = Fraction( a.numerator + b.numerator, a.denominator );
     }
     
     function add(Fraction memory a, Fraction memory b) internal pure denominatorIsNotZero(a) denominatorIsNotZero(b) returns(Fraction memory c){
@@ -81,7 +80,7 @@ library fractionLib {
     function _sub(Fraction memory a, Fraction memory b) internal pure denominatorIsNotZero(a) denominatorIsNotZero(b) returns(Fraction memory c){
         require( isGreaterThan(a, b), "Fraction: Underflow" );
         (a,b) = reduceToCommonDenomiantor(a,b);
-        c = Fraction( a.numerator.sub(b.numerator) , a.denominator );
+        c = Fraction( a.numerator - b.numerator, a.denominator );
     }
 
     function sub(Fraction memory a, Fraction memory b) internal pure denominatorIsNotZero(a) denominatorIsNotZero(b) returns(Fraction memory c){
@@ -89,7 +88,7 @@ library fractionLib {
     }
     // for some uses which do not need abbreviation
     function _mul(Fraction memory a, Fraction memory b)internal pure denominatorIsNotZero(a) denominatorIsNotZero(b) returns(Fraction memory c){
-        c = Fraction(a.numerator.mul(b.numerator) , a.denominator.mul(b.denominator));
+        c = Fraction(a.numerator * b.numerator, a.denominator * b.denominator);
     }
     
     function mul(Fraction memory a, Fraction memory b) internal pure denominatorIsNotZero(a) denominatorIsNotZero(b) returns(Fraction memory result) {
@@ -97,7 +96,7 @@ library fractionLib {
         b = abbreviate(b);
         Fraction memory c = abbreviate(Fraction( a.numerator , b.denominator));
         Fraction memory d = abbreviate(Fraction( b.numerator , a.denominator));
-        result = Fraction( c.numerator.mul(d.numerator) , c.denominator.mul(d.denominator));
+        result = Fraction( c.numerator * d.numerator , c.denominator * d.denominator);
     }
     // for some uses which do not need abbreviation
     function _div(Fraction memory a, Fraction memory b)internal pure denominatorIsNotZero(a) denominatorIsNotZero(b) returns(Fraction memory c) {
@@ -112,16 +111,16 @@ library fractionLib {
     // since dividing both numerator and denomiantor with same number keeps the original value of fraction,
     // but as in solidity which is only able to express integers not floats, integers divided by some integers give out approximated value
     function preventOverflow(Fraction memory frac, uint256 divider) internal pure denominatorIsNotZero(frac) returns(Fraction memory){
-        return Fraction(frac.numerator / divider, frac.denominator / divider);
+        return abbreviate(Fraction(frac.numerator / divider, frac.denominator / divider));
     }
     function fractionToMixed(Fraction memory a) internal pure denominatorIsNotZero(a) returns(uint256 integer, Fraction memory fraction){
         integer = a.numerator / a.denominator;
-        fraction = abbreviate(Fraction(a.numerator.sub((integer.mul(a.denominator))), a.denominator));
+        fraction = abbreviate(Fraction(a.numerator - (integer * a.denominator), a.denominator));
     }
     // by giving an uint and [0,1] to this function, it can also work as translator uint -> Fraction
     // therefore, using mixedToFraction() -> any computing functions given -> fractionToMixed() -> (result in uint, ) 
     // and the result uint can be more precise than just using uint computations, since uint's computation always round down more than Fraction's round down    
     function mixedToFraction(uint256 integer, Fraction memory fraction) internal pure denominatorIsNotZero(fraction) returns(Fraction memory result){
-        result = abbreviate(Fraction(fraction.numerator.add( integer.mul(fraction.denominator)), fraction.denominator));
+        result = abbreviate(Fraction(fraction.numerator + integer * fraction.denominator, fraction.denominator));
     }
 }
