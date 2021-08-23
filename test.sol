@@ -1,66 +1,66 @@
 pragma solidity ^0.8.0;
 
-import './libraries/FractionTuple.sol';
+import './libraries/fractionLib.sol';
 
 contract testing{
-    function _sort(uint256 a, uint256 b) external view returns(uint256, uint256){
-        return FractionTuple.sort(a,b);
+
+    using fractionLib for fractionLib.Fraction;
+    
+    function _sort(uint256 a, uint256 b) public view returns(uint256, uint256){
+        return fractionLib.sort(a,b);
     }
-    function _gcd(uint256 a, uint256 b) external view returns(uint256){
-        return FractionTuple.gcd(a,b);
+    function _gcd(uint256 a, uint256 b) public view returns(uint256){
+        return fractionLib.gcd(a,b);
     }
-    function _lcm(uint256 a, uint256 b) external view returns(uint256){
-        return FractionTuple.lcm(a,b);
+    function _lcm(uint256 a, uint256 b) public view returns(uint256){
+        return fractionLib.lcm(a,b);
     }
-    function _abbreviatable(FractionTuple.Tuple memory wantedTuple) external view returns(bool){
-        return FractionTuple.abbreviatable(wantedTuple);
+    function _isAbbreviatable(fractionLib.Fraction memory a) public view returns(bool){
+        return a.isAbbreviatable();
     }
-    function _abbreviate(FractionTuple.Tuple memory wantedTuple) external view returns(FractionTuple.Tuple memory){
-        return FractionTuple.abbreviate(wantedTuple);
+    function _abbreviate(fractionLib.Fraction memory a) public view returns(fractionLib.Fraction memory){
+        return a.abbreviate();
     }
-    function _reverseTuple(FractionTuple.Tuple memory wantedTuple) external view returns(FractionTuple.Tuple memory){
-        return FractionTuple.reverseTuple(wantedTuple);
+    function _toReciprocal(fractionLib.Fraction memory a) public view returns(fractionLib.Fraction memory){
+        return a.toReciprocal();
     }
-    function _commonDenominator(FractionTuple.Tuple memory a, FractionTuple.Tuple memory b) external view returns(FractionTuple.Tuple memory, FractionTuple.Tuple memory){
-        return FractionTuple.commonDenominator(a,b);
+    function _reduceToCommonDenomiantor(fractionLib.Fraction memory a, fractionLib.Fraction memory b) public view returns(fractionLib.Fraction memory, fractionLib.Fraction memory){
+        return a.reduceToCommonDenomiantor(b);
     }
-    function _isbiggerTuple(FractionTuple.Tuple memory big, FractionTuple.Tuple memory small) external view returns(bool){
-        return FractionTuple.isbiggerTuple(big, small);
+    function _isGreaterThan(fractionLib.Fraction memory big, fractionLib.Fraction memory small) public view returns(bool){
+        return big.isGreaterThan(small);
     }
-    function _biggerTuple(FractionTuple.Tuple memory a, FractionTuple.Tuple memory b) external view returns(FractionTuple.Tuple memory){
-        return FractionTuple.biggerTuple(a, b);
+    function _addWithOutAbbreviation(fractionLib.Fraction memory a, fractionLib.Fraction memory b) public view returns(fractionLib.Fraction memory){
+        return a._add(b);
     }
-    function _simpleAddTuple(FractionTuple.Tuple memory a, FractionTuple.Tuple memory b) external view returns(FractionTuple.Tuple memory){
-        return FractionTuple.simpleAddTuple(a,b);
+    function _add(fractionLib.Fraction memory a, fractionLib.Fraction memory b) public view returns(fractionLib.Fraction memory){
+        return a.add(b);
     }
-    function _addTuple(FractionTuple.Tuple memory a, FractionTuple.Tuple memory b) external view returns(FractionTuple.Tuple memory){
-        return FractionTuple.addTuple(a,b);
+    function _subtractWithOutAbbreviation(fractionLib.Fraction memory a, fractionLib.Fraction memory b) public view returns(fractionLib.Fraction memory){
+        return a._sub(b);
     }
-    function _simpleSubtractTuple(FractionTuple.Tuple memory a, FractionTuple.Tuple memory subtractingTuple) external view returns(FractionTuple.Tuple memory){
-        return FractionTuple.simpleSubtractTuple(a,subtractingTuple);
+    function _sub(fractionLib.Fraction memory a, fractionLib.Fraction memory b) public view returns(fractionLib.Fraction memory){
+        return a.sub(b);
     }
-    function _subtractTuple(FractionTuple.Tuple memory a, FractionTuple.Tuple memory subtractingTuple) external view returns(FractionTuple.Tuple memory){
-        return FractionTuple.subtractTuple(a,subtractingTuple);
+    function _multiplyWithOutAbbreviation(fractionLib.Fraction memory a, fractionLib.Fraction memory b) public view returns(fractionLib.Fraction memory){
+        return a._mul(b);
     }
-    function _simpleMultiplyTuple(FractionTuple.Tuple memory a, FractionTuple.Tuple memory b) external view returns(FractionTuple.Tuple memory){
-        return FractionTuple.simpleMultiplyTuple(a,b);
+    function _mul(fractionLib.Fraction memory a, fractionLib.Fraction memory b) public view returns(fractionLib.Fraction memory){
+        return a.mul(b);
     }
-    function _multiplyTuple(FractionTuple.Tuple memory a, FractionTuple.Tuple memory b) external view returns(FractionTuple.Tuple memory){
-        return FractionTuple.multiplyTuple(a,b);
+    function _div(fractionLib.Fraction memory a,fractionLib.Fraction memory b) public view returns(fractionLib.Fraction memory){
+        return a.div(b);
     }
-    function _divideTuple(FractionTuple.Tuple memory a, FractionTuple.Tuple memory dividingTuple) external view returns(FractionTuple.Tuple memory){
-        return FractionTuple.divideTuple(a, dividingTuple);
+    function _divideWithOutAbbreviation(fractionLib.Fraction memory a, fractionLib.Fraction memory b) public view returns(fractionLib.Fraction memory){
+        return a._div(b);
     }
-    function _simpleDivideTuple(FractionTuple.Tuple memory a, FractionTuple.Tuple memory dividingTuple) external view returns(FractionTuple.Tuple memory){
-        return FractionTuple.simpleDivideTuple(a, dividingTuple);
+    function _preventOverflow(fractionLib.Fraction memory a, uint256 b) public view returns(fractionLib.Fraction memory){
+        return a.preventOverflow(b);
     }
-    function _antiOverflow(FractionTuple.Tuple memory a, uint256 divider) external view returns(FractionTuple.Tuple memory){
-        return FractionTuple.antiOverflow(a, divider);
+    function fractionToMixed(fractionLib.Fraction memory a) public view returns(uint256 integer, fractionLib.Fraction memory fraction){
+        (integer, fraction) = a.fractionToMixed();
     }
-    function _fractionToMixed(FractionTuple.Tuple memory a) external view returns(uint256 integer, FractionTuple.Tuple memory fraction){
-        (integer, fraction) = FractionTuple.fractionToMixed(a);
-    }
-    function _mixedToFraction(uint256 integer, FractionTuple.Tuple memory fraction) external view returns(FractionTuple.Tuple memory result){
-        result = FractionTuple.mixedToFraction(integer, fraction);
+    function _mixedToFraction(uint256 integer, fractionLib.Fraction memory fraction) public view returns(fractionLib.Fraction memory result){
+        result = fractionLib.mixedToFraction(integer, fraction);
     }
 }
