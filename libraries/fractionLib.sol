@@ -120,7 +120,7 @@ library fractionLib {
     // by giving an uint and [0,1] to this function, it can also work as translator uint -> Fraction
     // therefore, using mixedToFraction() -> any computing functions given -> fractionToMixed() -> (result in uint, ) 
     // and the result uint can be more precise than just using uint computations, since uint's computation always round down more than Fraction's round down    
-    function mixedToFraction(uint256 integer, Fraction memory fraction) internal pure denominatorIsNotZero(fraction) returns(Fraction memory result){
-        result = abbreviate(Fraction(fraction.numerator + integer * fraction.denominator, fraction.denominator));
+    function mixedToFraction(uint256 integer, Fraction memory frac) internal pure denominatorIsNotZero(frac) returns(Fraction memory result){
+        result = abbreviate(Fraction(frac.numerator + integer * frac.denominator, frac.denominator));
     }
 }
