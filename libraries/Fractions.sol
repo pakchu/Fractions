@@ -1,6 +1,7 @@
+// SPDX-License-Identifier: MIT
 pragma solidity ^ 0.8.0;
 
-// with Solidity 0.8 or later, the compiler's built in overflow checks made this library does not need to depend on SafeMath
+// with Solidity 0.8.0 <= version <=0.9.0, the compiler's built in overflow checks made this library does not need to depend on SafeMath
 
 library Fractions {
     // defining a strtuct for fraction expression
@@ -77,7 +78,7 @@ library Fractions {
         (a,b) = reduceToCommonDenomiantor(a,b);
         c = Fraction(a.numerator + b.numerator, a.denominator);
     }
-    // has time complexity of O(log(max(min(_add(a,b).numerator, _add(a,b).denominator), min(a.denominator, b.denominator))))
+    // has time complexity of O(log(max(min(_add(a,b).numerator, _add(a,b).denominator), min(_add(a,b).numerator, _add(a,b).denominator))))
     function add(Fraction memory a, Fraction memory b) internal pure denominatorIsNotZero(a) denominatorIsNotZero(b) returns(Fraction memory c){
         c = abbreviate(_add(a,b));
     }
@@ -88,7 +89,7 @@ library Fractions {
         (a,b) = reduceToCommonDenomiantor(a,b);
         c = Fraction( a.numerator - b.numerator, a.denominator );
     }
-    // has time complexity of O(log(max(min(_sub(a,b).numerator, _sub(a,b).denominator), min(a.denominator, b.denominator))))
+    // has time complexity of O(log(max(min(_sub(a,b).numerator, _sub(a,b).denominator), min(_sub(a,b).numerator, _sub(a,b).denominator))))
     function sub(Fraction memory a, Fraction memory b) internal pure denominatorIsNotZero(a) denominatorIsNotZero(b) returns(Fraction memory c){
         c = abbreviate(_sub(a,b));
     }
@@ -97,6 +98,7 @@ library Fractions {
         c = Fraction(a.numerator * b.numerator, a.denominator * b.denominator);
     }
     // has time complexity of O(log(max(min(a.numerator, a.denominator), min(b.numerator, b.denominator), min(a.numerator, b.denominator), min(b.numerator, a.denominator)))
+    // which max(...) = second or third maximum element of (a.numerator, a.denominator, b.numerator, b.denominator)
     function mul(Fraction memory a, Fraction memory b) internal pure denominatorIsNotZero(a) denominatorIsNotZero(b) returns(Fraction memory result) {
         a = abbreviate(a);
         b = abbreviate(b);
@@ -110,6 +112,7 @@ library Fractions {
         c = _mul(a, toReciprocal(b));
     }
     // has time complexity of O(log(max(min(a.numerator, a.denominator), min(b.numerator, b.denominator), min(a.numerator, b.numerator), min(a.denominator, b.denominator)))
+    // which max(...) = second or third maximum element of (a.numerator, a.denominator, b.numerator, b.denominator)
     function div(Fraction memory a, Fraction memory b) denominatorIsNotZero(a) denominatorIsNotZero(b) internal pure returns(Fraction memory result){
         require(b.numerator != 0, "denominator cannot be 0");
         result = mul(a, toReciprocal(b));
@@ -117,7 +120,6 @@ library Fractions {
     // by adjusting divider, it can help the Fraction not to overflow.
     // since dividing both numerator and denomiantor with same number keeps the original value of fraction,
     // but as in solidity which is only able to express integers not floats, integers divided by some integers give out approximated value
-    // has time complexity of O(1)
     function preventOverflow(Fraction memory frac, uint256 divider) internal pure denominatorIsNotZero(frac) returns(Fraction memory){
         return abbreviate(Fraction(frac.numerator / divider, frac.denominator / divider));
     }
