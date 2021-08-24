@@ -77,10 +77,10 @@ library Fractions {
      */
 
     function reduceToCommonDenomiantor(Fraction memory a, Fraction memory b) internal pure denominatorIsNotZero(a) denominatorIsNotZero(b) returns(Fraction memory, Fraction memory){
-        uint256 lcm = lcm(a.denominator, b.denominator);
-        uint256 numerator0 = (lcm / a.denominator) * a.numerator;
-        uint256 numerator1 = (lcm / b.denominator) * b.numerator;
-        return (Fraction(numerator0, lcm), Fraction(numerator1, lcm));
+        uint256 _lcm = lcm(a.denominator, b.denominator);
+        uint256 numerator0 = (_lcm / a.denominator) * a.numerator;
+        uint256 numerator1 = (_lcm / b.denominator) * b.numerator;
+        return (Fraction(numerator0, _lcm), Fraction(numerator1, _lcm));
     }
 
     /**
