@@ -76,7 +76,7 @@ library Fractions {
      * Has time complexity of O(log(min(a.denominator, b.denominator)))
      */
 
-    function reduceToCommonDenomiantor(Fraction memory a, Fraction memory b) internal pure denominatorIsNotZero(a) denominatorIsNotZero(b) returns(Fraction memory, Fraction memory){
+    function reduceToCommonDenominator(Fraction memory a, Fraction memory b) internal pure denominatorIsNotZero(a) denominatorIsNotZero(b) returns(Fraction memory, Fraction memory){
         uint256 _lcm = lcm(a.denominator, b.denominator);
         uint256 numerator0 = (_lcm / a.denominator) * a.numerator;
         uint256 numerator1 = (_lcm / b.denominator) * b.numerator;
@@ -89,17 +89,17 @@ library Fractions {
     function isGreaterThan(Fraction memory big, Fraction memory small)internal pure denominatorIsNotZero(big) denominatorIsNotZero(small) returns(bool) {
         Fraction memory c;
         Fraction memory d;
-        (c, d) = reduceToCommonDenomiantor(big, small);
+        (c, d) = reduceToCommonDenominator(big, small);
         if (c.numerator >= d.numerator) return true;
         else return false;
     }
 
     /**
      * @dev For some use cases which do not need abbreviation.
-     * Has the same time complexity as reduceToCommonDenomiantor().
+     * Has the same time complexity as reduceToCommonDenominator().
      */
     function _add(Fraction memory a, Fraction memory b) internal pure denominatorIsNotZero(a) denominatorIsNotZero(b) returns(Fraction memory c){
-        (a,b) = reduceToCommonDenomiantor(a,b);
+        (a,b) = reduceToCommonDenominator(a,b);
         c = Fraction(a.numerator + b.numerator, a.denominator);
     }
     
@@ -111,11 +111,11 @@ library Fractions {
     }
     /**
      * @dev For some use cases which do not need abbreviation.
-     * Has the same time complexity as reduceToCommonDenomiantor().
+     * Has the same time complexity as reduceToCommonDenominator().
      */
     function _sub(Fraction memory a, Fraction memory b) internal pure denominatorIsNotZero(a) denominatorIsNotZero(b) returns(Fraction memory c){
         require( isGreaterThan(a, b), "Fraction: Underflow" );
-        (a,b) = reduceToCommonDenomiantor(a,b);
+        (a,b) = reduceToCommonDenominator(a,b);
         c = Fraction( a.numerator - b.numerator, a.denominator );
     }
     /**
