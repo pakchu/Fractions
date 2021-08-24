@@ -53,17 +53,17 @@ library fractionLib {
     // ***********has time complexity of O(1)
     function toReciprocal(Fraction memory frac) internal pure denominatorIsNotZero(frac) returns(Fraction memory){
         require(frac.numerator != 0, "denominator cannot be 0");
-        return Fraction( frac.denominator, frac.numerator );
+        return Fraction(frac.denominator, frac.numerator);
     }
     // finding lcm of denominators of two Fractions
-    // ***********has time complexity of O(log(max(min(a.numerator, a.denominator), min(b.numerator, b.denominator)))))
+    // ***********has time complexity of O(log(min(a.denominator, b.denominator)))
     function reduceToCommonDenomiantor(Fraction memory a, Fraction memory b) internal pure denominatorIsNotZero(a) denominatorIsNotZero(b) returns(Fraction memory, Fraction memory){
         uint256 lcm = lcm(a.denominator, b.denominator);
         uint256 numerator0 = (lcm / a.denominator) * a.numerator;
         uint256 numerator1 = (lcm / b.denominator) * b.numerator;
         return (Fraction(numerator0, lcm), Fraction(numerator1, lcm));
     }
-    // ***********has time complexity of O(log(max(min(big.numerator, big.denominator), min(small.numerator, small.denominator)))))
+    // ***********has time complexity of O(log(min(big.denominator, small.denominator)))
     function isGreaterThan(Fraction memory big, Fraction memory small)internal pure denominatorIsNotZero(big) denominatorIsNotZero(small) returns(bool) {
         Fraction memory c;
         Fraction memory d;
@@ -73,23 +73,23 @@ library fractionLib {
     }
 
     // for some uses which do not need abbreviation
-    // ***********has time complexity of O(log(max(min(a.numerator, a.denominator), min(b.numerator, b.denominator)))))
+    // ***********has time complexity of O(log(min(a.denominator, b.denominator)))
     function _add(Fraction memory a, Fraction memory b) internal pure denominatorIsNotZero(a) denominatorIsNotZero(b) returns(Fraction memory c){
         (a,b) = reduceToCommonDenomiantor(a,b);
-        c = Fraction( a.numerator + b.numerator, a.denominator );
+        c = Fraction(a.numerator + b.numerator, a.denominator);
     }
-    // ***********has time complexity of O(log(max(min(a.numerator, a.denominator), min(b.numerator, b.denominator)))))
+    // ***********has time complexity of O(log(max(min(_add(a,b).numerator, _add(a,b).denominator), min(a.denominator, b.denominator))))
     function add(Fraction memory a, Fraction memory b) internal pure denominatorIsNotZero(a) denominatorIsNotZero(b) returns(Fraction memory c){
         c = abbreviate(_add(a,b));
     }
     // for some uses which do not need abbreviation
-    // ***********has time complexity of O(log(max(min(a.numerator, a.denominator), min(b.numerator, b.denominator)))))
+    // ***********has time complexity of O(log(min(a.denominator, b.denominator)))
     function _sub(Fraction memory a, Fraction memory b) internal pure denominatorIsNotZero(a) denominatorIsNotZero(b) returns(Fraction memory c){
         require( isGreaterThan(a, b), "Fraction: Underflow" );
         (a,b) = reduceToCommonDenomiantor(a,b);
         c = Fraction( a.numerator - b.numerator, a.denominator );
     }
-    // ***********has time complexity of O(log(max(min(a.numerator, a.denominator), min(b.numerator, b.denominator)))))
+    // ***********has time complexity of O(log(max(min(_sub(a,b).numerator, _sub(a,b).denominator), min(a.denominator, b.denominator))))
     function sub(Fraction memory a, Fraction memory b) internal pure denominatorIsNotZero(a) denominatorIsNotZero(b) returns(Fraction memory c){
         c = abbreviate(_sub(a,b));
     }
@@ -98,13 +98,13 @@ library fractionLib {
     function _mul(Fraction memory a, Fraction memory b)internal pure denominatorIsNotZero(a) denominatorIsNotZero(b) returns(Fraction memory c){
         c = Fraction(a.numerator * b.numerator, a.denominator * b.denominator);
     }
-    // ***********has time complexity of O(log(max(min(a.numerator, a.denominator), min(b.numerator, b.denominator)))))
+    // ***********has time complexity of O(log(max(min(a.numerator, a.denominator), min(b.numerator, b.denominator), min(a.numerator, b.denominator), min(b.numerator, a.denominator)))
     function mul(Fraction memory a, Fraction memory b) internal pure denominatorIsNotZero(a) denominatorIsNotZero(b) returns(Fraction memory result) {
         a = abbreviate(a);
         b = abbreviate(b);
-        Fraction memory c = abbreviate(Fraction( a.numerator , b.denominator));
-        Fraction memory d = abbreviate(Fraction( b.numerator , a.denominator));
-        result = Fraction( c.numerator * d.numerator , c.denominator * d.denominator);
+        Fraction memory c = abbreviate(Fraction(a.numerator , b.denominator));
+        Fraction memory d = abbreviate(Fraction(b.numerator , a.denominator));
+        result = Fraction(c.numerator * d.numerator , c.denominator * d.denominator);
     }
     // for some uses which do not need abbreviation
     // ***********has time complexity of O(1)
@@ -112,7 +112,7 @@ library fractionLib {
         require( b.numerator != 0, "denominator cannot be 0");
         c = _mul(a, toReciprocal(b));
     }
-    // ***********has time complexity of O(log(max(min(a.numerator, a.denominator), min(b.numerator, b.denominator)))))
+    // ***********has time complexity of O(log(max(min(a.numerator, a.denominator), min(b.numerator, b.denominator), min(a.numerator, b.numerator), min(a.denominator, b.denominator)))
     function div(Fraction memory a, Fraction memory b) denominatorIsNotZero(a) denominatorIsNotZero(b) internal pure returns(Fraction memory result){
         require(b.numerator != 0, "denominator cannot be 0");
         result = mul(a, toReciprocal(b));
