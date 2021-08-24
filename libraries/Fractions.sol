@@ -41,7 +41,7 @@ library Fractions {
     }
 
     /**
-     * @dev check if a Fraction's denominator is 0.
+     * @dev Check if a Fraction's denominator is 0.
      */
 
     modifier denominatorIsNotZero(Fraction memory frac) {
@@ -132,6 +132,8 @@ library Fractions {
     /**
      * @dev Has time complexity of O(log(max(min(a.numerator, a.denominator), min(b.numerator, b.denominator), min(a.numerator, b.denominator), min(b.numerator, a.denominator))).
      * max(...) = second or third maximum element of (a.numerator, a.denominator, b.numerator, b.denominator).
+     * If the second maximum element is paired with the maximum element at least once, max(...) = second maximum of (...)
+     * Else max(...) = third maximum of (...)
      */
     function mul(Fraction memory a, Fraction memory b) internal pure denominatorIsNotZero(a) denominatorIsNotZero(b) returns(Fraction memory result) {
         a = abbreviate(a);
@@ -150,6 +152,8 @@ library Fractions {
     /**
      * @dev Has time complexity of O(log(max(min(a.numerator, a.denominator), min(b.numerator, b.denominator), min(a.numerator, b.numerator), min(a.denominator, b.denominator))).
      * max(...) = second or third maximum element of (a.numerator, a.denominator, b.numerator, b.denominator).
+     * If the second maximum element is paired with the maximum element at least once, max(...) = second maximum of (...)
+     * Else max(...) = third maximum of (...)
      */
     function div(Fraction memory a, Fraction memory b) denominatorIsNotZero(a) denominatorIsNotZero(b) internal pure returns(Fraction memory result){
         require(b.numerator != 0, "denominator cannot be 0");
