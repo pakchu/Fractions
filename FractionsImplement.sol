@@ -65,12 +65,4 @@ contract FractionsImpl{
         if (boo0 && boo1) return true;
         else return false;
     }
-    function mixedFractionTest() external view returns(bool){
-        // if (Fractions.mixedToFraction((a.fractionToMixed)) == a) return true;
-        (uint integer,Fractions.Fraction memory frac ) = a.fractionToMixed();
-        bool boo0 = Fractions.mixedToFraction(integer, frac).numerator == a.numerator;
-        bool boo1 = Fractions.mixedToFraction(integer, frac).denominator == a.denominator;
-        if (boo0 && boo1) return true;
-        else return false;
-    }
 }

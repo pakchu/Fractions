@@ -15,6 +15,10 @@ library Fractions {
         uint256 numerator;
         uint256 denominator;
     }
+    struct Mixed {
+        uint256 integer;
+        Fraction fraction;
+    }
 
     function sort(uint256 a, uint256 b) internal pure returns(uint256, uint256){
         if (a > b){
@@ -167,23 +171,5 @@ library Fractions {
      */
     function preventOverflow(Fraction memory frac, uint256 divider) internal pure denominatorIsNotZero(frac) returns(Fraction memory){
         return abbreviate(Fraction(frac.numerator / divider, frac.denominator / divider));
-    }
-    /**
-     * @dev Has time complexity of O(log(min(frac.numerator - (integer * frac.denominator), frac.denominator))).
-     */
-    function fractionToMixed(Fraction memory frac) internal pure denominatorIsNotZero(frac) returns(uint256 integer, Fraction memory fraction){
-        integer = frac.numerator / frac.denominator;
-        fraction = abbreviate(Fraction(frac.numerator - (integer * frac.denominator), frac.denominator));
-    }
-    /**
-     * @dev By giving an uint and [0,1] to this function, it can also work as translator uint -> Fraction.
-     +
-     * Therefore, using mixedToFraction() -> any computing functions given by this lib -> FractionToMixed() -> (result in uint, rest over in Fraction) 
-     * and the result in uint can be more precise than just using uint computations, since uint's computation always round down more often than the Fraction's computation  
-     *
-     * Has time complexity of O(log(min(frac.numerator + (integer * frac.denominator), frac.denominator)))
-     */
-    function mixedToFraction(uint256 integer, Fraction memory frac) internal pure denominatorIsNotZero(frac) returns(Fraction memory){
-        return abbreviate(Fraction(frac.numerator + integer * frac.denominator, frac.denominator));
     }
 }
