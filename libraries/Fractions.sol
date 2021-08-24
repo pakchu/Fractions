@@ -2,7 +2,7 @@
 pragma solidity ^ 0.8.0;
 
 /**
- * @dev with Solidity 0.8.0 <= version <=0.9.0, the compiler's built in overflow checker made possible for this library not to depend on SafeMath.
+ * @dev With Solidity 0.8.0 <= version <=0.9.0, the compiler's built in overflow checker made possible for this library not to depend on SafeMath.
  */
 
 library Fractions {
@@ -175,10 +175,10 @@ library Fractions {
         fraction = abbreviate(Fraction(frac.numerator - (integer * frac.denominator), frac.denominator));
     }
     /**
-     * @dev by giving an uint and [0,1] to this function, it can also work as translator uint -> Fraction.
+     * @dev By giving an uint and [0,1] to this function, it can also work as translator uint -> Fraction.
      +
-     * Therefore, using mixedToFraction() -> any computing functions given -> FractionToMixed() -> (result in uint, ) 
-     * and the result uint can be more precise than just using uint computations, since uint's computation always round down more than Fraction's round down  
+     * Therefore, using mixedToFraction() -> any computing functions given by this lib -> FractionToMixed() -> (result in uint, rest over in Fraction) 
+     * and the result in uint can be more precise than just using uint computations, since uint's computation always round down more often than the Fraction's computation  
      *
      * Has time complexity of O(log(min(frac.numerator + (integer * frac.denominator), frac.denominator)))
      */
