@@ -57,10 +57,4 @@ contract FractionsImpl{
     function preventOverflow(Fractions.Fraction memory a, uint256 b) public view returns(Fractions.Fraction memory){
         return a.preventOverflow(b);
     }
-    function fractionToMixed(Fractions.Fraction memory a) public view returns(uint256 integer, Fractions.Fraction memory fraction){
-        (integer, fraction) = a.fractionToMixed();
-    }
-    function mixedToFraction(uint256 integer, Fractions.Fraction memory fraction) public view returns(Fractions.Fraction memory result){
-        result = Fractions.mixedToFraction(integer, fraction);
-    }
 }
