@@ -15,7 +15,7 @@ contract FractionsImpl{
     function lcm(uint256 a, uint256 b) public view returns(uint256){
         return Fractions.lcm(a,b);
     }
-    function isAbbreviatable(Fractions.Fraction memory a) public view returns(bool){
+    function isAbbreviatable(Fractions.Fraction memory a) public view returns(bool){ 
         return a.isAbbreviatable();
     }
     function abbreviate(Fractions.Fraction memory a) public view returns(Fractions.Fraction memory){
@@ -24,8 +24,8 @@ contract FractionsImpl{
     function toReciprocal(Fractions.Fraction memory a) public view returns(Fractions.Fraction memory){
         return a.toReciprocal();
     }
-    function reduceToCommonDenomiantor(Fractions.Fraction memory a, Fractions.Fraction memory b) public view returns(Fractions.Fraction memory, Fractions.Fraction memory){
-        return a.reduceToCommonDenomiantor(b);
+    function reduceToCommonDenominator(Fractions.Fraction memory a, Fractions.Fraction memory b) public view returns(Fractions.Fraction memory, Fractions.Fraction memory){
+        return a.reduceToCommonDenominator(b);
     }
     function isGreaterThan(Fractions.Fraction memory big, Fractions.Fraction memory small) public view returns(bool){
         return big.isGreaterThan(small);
