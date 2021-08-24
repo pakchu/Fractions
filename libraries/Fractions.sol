@@ -29,8 +29,7 @@ library Fractions {
     function gcd(uint256 a, uint256 b) internal pure returns(uint256){
         (a,b) = sort(a,b);
         while(b != 0) {
-            a = a % b;
-            (a,b) = sort(a,b);
+            (a, b) = (b, a);
         }
         return a;
     }
