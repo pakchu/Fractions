@@ -9,6 +9,9 @@ contract FractionsImpl{
     uint256 w;
     uint256 x;
     uint256 y;
+    Fractions.Fraction public a;
+    Fractions.Fraction public b;
+    
     constructor(
         uint256 _v,
         uint256 _w,
@@ -20,19 +23,21 @@ contract FractionsImpl{
         w = _w;
         x = _x;
         y = _y;
+        a = Fractions.Fraction(_v,_w);
+        b = Fractions.Fraction(_x,_y);
     }
-    Fractions.Fraction a = Fractions.Fraction(v,w);
-    Fractions.Fraction b = Fractions.Fraction(x,y);
-
+    
     function gcdTest() external view returns(bool){
         uint256 gcd = Fractions.gcd(v,w);
         if (v % gcd == 0 && w % gcd == 0) return true;
         else return false;
     }
     function lcmTest() external view returns(bool){
-        uint256 lcm = Fractions.lcm(v,w);
-        if (lcm % v == 0 && lcm % w == 0) return true;
-        else return false;
+        if (v * w != 0){
+            uint256 lcm = Fractions.lcm(v,w);
+            if (lcm % v == 0 && lcm % w == 0) return true;
+            else return false;
+        } else return true;
     }
     function abbreviateTest() external view returns(bool){
         Fractions.Fraction memory abbreviated = Fractions.Fraction(v,w).abbreviate();
@@ -60,9 +65,11 @@ contract FractionsImpl{
     }
     function mulAndDivTest() external view returns(bool){
         // if (a.mul(b).div(a).div(b) == Fractions.Fraction(1,1)) return true;
-        bool boo0 = a.mul(b).div(a).div(b).numerator == 1;
-        bool boo1 = a.mul(b).div(a).div(b).denominator == 1;
-        if (boo0 && boo1) return true;
-        else return false;
+        if( v * w * x * y !=0){
+            bool boo0 = a.mul(b).div(a).div(b).numerator == 1;
+            bool boo1 = a.mul(b).div(a).div(b).denominator == 1;
+            if (boo0 && boo1) return true;
+            else return false;
+        } else return true;
     }
 }
