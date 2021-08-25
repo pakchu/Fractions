@@ -27,6 +27,20 @@ contract FractionsImpl{
         b = Fractions.Fraction(_x,_y);
     }
     
+    // funtion setter(
+    //     uint256 _v,
+    //     uint256 _w,
+    //     uint256 _x,
+    //     uint256 _y
+    //     ) external {
+    //     v = _v;
+    //     w = _w;
+    //     x = _x;
+    //     y = _y;
+    //     a = Fractions.Fraction(_v,_w);
+    //     b = Fractions.Fraction(_x,_y);
+    //     }
+
     function gcdTest() external view returns(bool){
         uint256 gcd = Fractions.gcd(v,w);
         if (v % gcd == 0 && w % gcd == 0) return true;
