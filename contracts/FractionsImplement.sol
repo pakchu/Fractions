@@ -47,11 +47,9 @@ contract FractionsImpl{
         else return false;
     }
     function lcmTest() external view returns(bool){
-        if (v * w != 0){
-            uint256 lcm = Fractions.lcm(v,w);
-            if (lcm % v == 0 && lcm % w == 0) return true;
-            else return false;
-        } else return true;
+        uint256 lcm = Fractions.lcm(v,w);
+        if (lcm % v == 0 && lcm % w == 0) return true;
+        else return false;
     }
     function abbreviateTest() external view returns(bool){
         Fractions.Fraction memory abbreviated = Fractions.Fraction(v,w).abbreviate();
@@ -79,11 +77,9 @@ contract FractionsImpl{
     }
     function mulAndDivTest() external view returns(bool){
         // if (a.mul(b).div(a).div(b) == Fractions.Fraction(1,1)) return true;
-        if( v * w * x * y !=0){
-            bool boo0 = a.mul(b).div(a).div(b).numerator == 1;
-            bool boo1 = a.mul(b).div(a).div(b).denominator == 1;
-            if (boo0 && boo1) return true;
-            else return false;
-        } else return true;
+        bool boo0 = a.mul(b).div(a).div(b).numerator == 1;
+        bool boo1 = a.mul(b).div(a).div(b).denominator == 1;
+        if (boo0 && boo1) return true;
+        else return false;
     }
 }
