@@ -82,4 +82,10 @@ contract FractionsImpl{
         if (boo0 && boo1) return true;
         else return false;
     }
+    function commutativeProperty() external view returns(bool){
+        bool boo0 = (a.add(b) == b.add(a));
+        bool boo1 = (a.mul(b) == b.mul(a));
+        if (boo0 && boo1) return true;
+        else return false;
+    }
 }
