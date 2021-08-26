@@ -1,6 +1,6 @@
 pragma solidity ^0.8.0;
 
-import './libraries/Fractions.sol';
+import '../libraries/Fractions.sol';
 
 contract FractionsImpl{
     using Fractions for Fractions.Fraction;
@@ -27,7 +27,7 @@ contract FractionsImpl{
     //     b = Fractions.Fraction(_x,_y);
     // }
     
-    funtion setter(
+    function setter(
         uint256 _v,
         uint256 _w,
         uint256 _x,
@@ -39,7 +39,7 @@ contract FractionsImpl{
         y = _y;
         a = Fractions.Fraction(_v,_w);
         b = Fractions.Fraction(_x,_y);
-        }
+    }
 
     function gcdTest() external view returns(bool){
         uint256 gcd = Fractions.gcd(v,w);

@@ -3,7 +3,7 @@ pragma solidity ^ 0.8.0;
 
 /**
  * @title Fractions
- * @author Hyun Cho (@pakchu), refactoring words thanks to: Beomsoo Kim (@bombs-kim)
+ * @author Hyun Cho (@pakchu), refactoring thanks to: Beomsoo Kim (@bombs-kim)
  * @dev With Solidity 0.8.0 <= version <=0.9.0, the compiler's built in overflow checker made possible for this library not to depend on SafeMath.
  */
 
