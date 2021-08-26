@@ -12,34 +12,34 @@ contract FractionsImpl{
     Fractions.Fraction public a;
     Fractions.Fraction public b;
     
-    constructor(
-        uint256 _v,
-        uint256 _w,
-        uint256 _x,
-        uint256 _y
-    )
-    {
-        v = _v;
-        w = _w;
-        x = _x;
-        y = _y;
-        a = Fractions.Fraction(_v,_w);
-        b = Fractions.Fraction(_x,_y);
-    }
-    
-    // funtion setter(
+    // constructor(
     //     uint256 _v,
     //     uint256 _w,
     //     uint256 _x,
     //     uint256 _y
-    //     ) external {
+    // )
+    // {
     //     v = _v;
     //     w = _w;
     //     x = _x;
     //     y = _y;
     //     a = Fractions.Fraction(_v,_w);
     //     b = Fractions.Fraction(_x,_y);
-    //     }
+    // }
+    
+    funtion setter(
+        uint256 _v,
+        uint256 _w,
+        uint256 _x,
+        uint256 _y
+        ) external {
+        v = _v;
+        w = _w;
+        x = _x;
+        y = _y;
+        a = Fractions.Fraction(_v,_w);
+        b = Fractions.Fraction(_x,_y);
+        }
 
     function gcdTest() external view returns(bool){
         uint256 gcd = Fractions.gcd(v,w);
@@ -47,8 +47,8 @@ contract FractionsImpl{
         else return false;
     }
     function lcmTest() external view returns(bool){
-        uint256 lcm = Fractions.lcm(v,w);
-        if (lcm % v == 0 && lcm % w == 0) return true;
+        uint256 lcm = Fractions.lcm(w,y);
+        if (lcm % w == 0 && lcm % y == 0) return true;
         else return false;
     }
     function abbreviateTest() external view returns(bool){

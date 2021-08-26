@@ -2,7 +2,7 @@ pragma solidity ^0.8.0;
 
 import './libraries/Fractions.sol';
 
-contract FractionsImpl{
+contract TestingFraction{
 
     using Fractions for Fractions.Fraction;
     
